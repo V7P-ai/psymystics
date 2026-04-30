@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>psymystics.com</title>
+  <link rel="canonical" href="https://psymystics.com/">
+  <meta property="og:title" content="psymystics.com">
+  <meta property="og:url" content="https://psymystics.com/">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #c9a84c;
+      --gold2: #f0d080;
+      --gold-dim: #8a6a20;
+      --black: #080808;
+      --dark: #111111;
+      --dark2: #1a1a1a;
+      --dark3: #222222;
+      --white: #f5f0e8;
+      --muted: rgba(245, 240, 232, 0.58);
+      --line: rgba(201, 168, 76, 0.18);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: var(--black);
+      color: var(--white);
+      font-family: "Outfit", Arial, sans-serif;
+      cursor: none;
+    }
+
+    a, button, input, select, textarea {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .cursor,
+    .cursor-ring {
+      position: fixed;
+      left: 0;
+      top: 0;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+    }
+
+    .cursor {
+      width: 10px;
+      height: 10px;
+      background: var(--gold);
+      mix-blend-mode: difference;
+      transition: width 0.15s, height 0.15s, opacity 0.15s;
+    }
+
+    .cursor-ring {
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid var(--gold);
+      opacity: 0.6;
+      z-index: 9998;
+      transition: width 0.2s, height 0.2s, opacity 0.2s;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 1.1rem clamp(1.2rem, 4vw, 3rem);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+      background: rgba(8, 8, 8, 0.88);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      min-width: max-content;
+      text-decoration: none;
+    }
+
+    .nav-monogram {
+      display: grid;
+      width: 46px;
+      height: 46px;
+      place-items: center;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      color: var(--gold);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      box-shadow: 0 0 18px rgba(201, 168, 76, 0.2);
+    }
+
+    .nav-name {
+      color: var(--white);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.24rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .nav-name span {
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: clamp(1rem, 2.2vw, 2rem);
+    }
+
+    .nav-links a {
+      position: relative;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a::after {
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      content: "";
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta,
+    .btn-gold,
+    .btn-ghost,
+    .submit-btn,
+    .modal-close {
+      cursor: none;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: max-content;
+      border: 1px solid var(--gold);
+      background: transparent;
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 0.56rem 1.3rem;
+      transition: background 0.25s, color 0.25s, box-shadow 0.25s;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold);
+      color: var(--black);
+      box-shadow: 0 0 28px rgba(201, 168, 76, 0.35);
+    }
+
+    .hero {
+      position: relative;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      overflow: hidden;
+      padding: 7rem clamp(1.5rem, 4vw, 3rem) 8rem;
+    }
+
+    .hero::before {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 78% 40%, rgba(201, 168, 76, 0.14), transparent 30%),
+        linear-gradient(90deg, rgba(8, 8, 8, 0.98), rgba(8, 8, 8, 0.76) 58%, rgba(8, 8, 8, 0.96));
+      content: "";
+      pointer-events: none;
+    }
+
+    .particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0;
+      animation: floatP linear infinite;
+    }
+
+    @keyframes floatP {
+      0% { opacity: 0; transform: translateY(100vh) scale(0); }
+      10% { opacity: 0.7; }
+      90% { opacity: 0.3; }
+      100% { opacity: 0; transform: translateY(-20px) scale(1.5); }
+    }
+
+    .hero-bg {
+      position: absolute;
+      right: -3%;
+      top: 50%;
+      color: rgba(201, 168, 76, 0.045);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(16rem, 35vw, 32rem);
+      font-weight: 900;
+      letter-spacing: -18px;
+      line-height: 1;
+      pointer-events: none;
+      transform: translateY(-50%);
+      user-select: none;
+    }
+
+    .hero-welcome,
+    .hero-badge,
+    .hero-title,
+    .hero-quote,
+    .hero-tagline,
+    .hero-actions,
+    .hero-stats {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-welcome {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      color: rgba(245, 240, 232, 0.82);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(1.15rem, 2.5vw, 1.65rem);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.9rem;
+      animation: fadeUp 1s 0.04s both;
+    }
+
+    .hero-welcome::before,
+    .hero-welcome::after {
+      display: inline-block;
+      width: clamp(28px, 6vw, 64px);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+      content: "";
+    }
+
+    .hero-welcome::after {
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin-bottom: 2rem;
+      padding: 0.45rem 1rem;
+      text-transform: uppercase;
+      animation: fadeUp 1s 0.1s both;
+    }
+
+    .hero-title {
+      color: var(--white);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(4rem, 10vw, 8rem);
+      font-weight: 900;
+      line-height: 0.95;
+      margin-bottom: 1.2rem;
+      animation: fadeUp 1s 0.25s both;
+    }
+
+    .gold {
+      color: var(--gold);
+    }
+
+    .hero-quote {
+      width: min(100%, 670px);
+      border-left: 2px solid var(--gold);
+      color: rgba(245, 240, 232, 0.78);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(1.1rem, 2.4vw, 1.55rem);
+      font-weight: 700;
+      line-height: 1.35;
+      margin: 0 0 1.35rem;
+      padding: 0.2rem 0 0.2rem 1rem;
+      transition: opacity 0.24s, transform 0.24s;
+      animation: fadeUp 1s 0.32s both;
+    }
+
+    .hero-quote span {
+      color: var(--gold);
+    }
+
+    .hero-tagline {
+      color: var(--muted);
+      font-size: clamp(0.82rem, 1.8vw, 1rem);
+      font-weight: 300;
+      letter-spacing: 3px;
+      margin-bottom: 3rem;
+      text-transform: uppercase;
+      animation: fadeUp 1s 0.48s both;
+    }
+
+    .hero-tagline span {
+      display: inline-block;
+      width: 40px;
+      height: 1px;
+      margin: 0 0.8rem;
+      background: var(--gold-dim);
+      vertical-align: middle;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      animation: fadeUp 1s 0.62s both;
+    }
+
+    .btn-gold,
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      padding: 1rem 2.3rem;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
+    }
+
+    .btn-gold {
+      border: 0;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: var(--black);
+    }
+
+    .btn-gold:hover {
+      box-shadow: 0 10px 40px rgba(201, 168, 76, 0.4);
+      transform: translateY(-3px);
+    }
+
+    .btn-ghost {
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      background: transparent;
+      color: var(--gold);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--gold);
+      background: rgba(201, 168, 76, 0.07);
+      box-shadow: 0 0 24px rgba(201, 168, 76, 0.12);
+    }
+
+    .hero-stats {
+      position: absolute;
+      bottom: 3rem;
+      left: clamp(1.5rem, 4vw, 3rem);
+      display: flex;
+      flex-wrap: wrap;
+      gap: clamp(1.5rem, 4vw, 3rem);
+      animation: fadeUp 1s 0.7s both;
+    }
+
+    .stat-num {
+      color: var(--gold);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      margin-top: 0.25rem;
+      text-transform: uppercase;
+    }
+
+    .gold-rule {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+    }
+
+    .section {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem clamp(1.5rem, 4vw, 3rem);
+    }
+
+    .sec-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: var(--gold);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 4px;
+      margin-bottom: 0.6rem;
+      text-transform: uppercase;
+    }
+
+    .sec-eyebrow::before {
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
+      content: "";
+    }
+
+    .sec-title {
+      color: var(--white);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(2.25rem, 5vw, 3.6rem);
+      font-weight: 900;
+      line-height: 1.08;
+      margin-bottom: 3rem;
+    }
+
+    .sec-title em {
+      color: var(--gold);
+    }
+
+    .services-grid,
+    .contact-grid {
+      display: grid;
+      border: 1px solid rgba(201, 168, 76, 0.1);
+      background: rgba(201, 168, 76, 0.1);
+      gap: 1.5px;
+    }
+
+    .services-grid {
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    }
+
+    .srv-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 230px;
+      background: var(--dark);
+      padding: 2.5rem 1.8rem;
+      transition: background 0.25s, transform 0.25s;
+    }
+
+    .srv-card::after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      content: "";
+      transition: width 0.35s;
+    }
+
+    .srv-card:hover,
+    .srv-card.selected {
+      background: var(--dark3);
+    }
+
+    .srv-card:hover::after,
+    .srv-card.selected::after {
+      width: 100%;
+    }
+
+    .srv-icon {
+      display: block;
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
+      filter: grayscale(1) brightness(1.2);
+      transition: filter 0.25s;
+    }
+
+    .srv-card:hover .srv-icon,
+    .srv-card.selected .srv-icon {
+      filter: none;
+    }
+
+    .srv-name {
+      color: var(--white);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.45rem;
+    }
+
+    .srv-desc {
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+
+    .srv-arrow {
+      position: absolute;
+      right: 1.5rem;
+      top: 2rem;
+      color: var(--gold);
+      font-size: 1rem;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.25s, transform 0.25s;
+    }
+
+    .srv-card:hover .srv-arrow,
+    .srv-card.selected .srv-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .steps-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .steps-row::before {
+      position: absolute;
+      top: 2.8rem;
+      left: 12%;
+      right: 12%;
+      z-index: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dim), var(--gold-dim), transparent);
+      content: "";
+    }
+
+    .step {
+      position: relative;
+      z-index: 1;
+      padding: 2rem 1.4rem;
+      text-align: center;
+    }
+
+    .step-circle {
+      display: grid;
+      width: 56px;
+      height: 56px;
+      place-items: center;
+      margin: 0 auto 1.4rem;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      background: var(--black);
+      box-shadow: 0 0 20px rgba(201, 168, 76, 0.15);
+      font-size: 1.3rem;
+    }
+
+    .step-num-label {
+      color: var(--gold);
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+    }
+
+    .step-name {
+      color: var(--white);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.12rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-info {
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+
+    .order-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+      align-items: start;
+      gap: clamp(2rem, 6vw, 4rem);
+    }
+
+    .order-info h3 {
+      color: var(--white);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.9rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .order-info > p,
+    .payment-text > p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.75;
+    }
+
+    .policy-box {
+      border: 1px solid rgba(201, 168, 76, 0.25);
+      border-left: 3px solid var(--gold);
+      background: rgba(201, 168, 76, 0.04);
+      margin: 1.5rem 0;
+      padding: 1.35rem 1.5rem;
+    }
+
+    .policy-box p {
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.7;
+    }
+
+    .policy-box strong {
+      color: var(--gold);
+    }
+
+    .policy-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      list-style: none;
+      margin-top: 1.2rem;
+    }
+
+    .policy-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .policy-list li::before {
+      flex-shrink: 0;
+      color: var(--gold);
+      content: "◆";
+      font-size: 0.5rem;
+      margin-top: 0.3rem;
+    }
+
+    .form-box {
+      border: 1px solid var(--line);
+      background: var(--dark);
+      padding: clamp(1.4rem, 4vw, 2.5rem);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.15rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .fg {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .fg-full {
+      grid-column: 1 / -1;
+    }
+
+    .fg label {
+      color: var(--gold);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .fg input,
+    .fg select,
+    .fg textarea {
+      width: 100%;
+      border: 1px solid rgba(201, 168, 76, 0.18);
+      border-bottom-color: rgba(201, 168, 76, 0.45);
+      outline: none;
+      background: var(--dark2);
+      color: var(--white);
+      font-size: 0.9rem;
+      padding: 0.82rem 1rem;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+
+    .fg input::placeholder,
+    .fg textarea::placeholder {
+      color: rgba(245, 240, 232, 0.28);
+    }
+
+    .fg input:focus,
+    .fg select:focus,
+    .fg textarea:focus {
+      border-color: var(--gold);
+      background: rgba(201, 168, 76, 0.05);
+      box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.15);
+    }
+
+    .fg select option {
+      background: #1a1a1a;
+      color: #f5f0e8;
+    }
+
+    .fg textarea {
+      min-height: 112px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      width: 100%;
+      border: 0;
+      background: linear-gradient(90deg, var(--gold), var(--gold2), var(--gold));
+      background-size: 200% 100%;
+      color: var(--black);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      margin-top: 1.3rem;
+      padding: 1.1rem;
+      transition: background-position 0.4s, box-shadow 0.3s, transform 0.2s;
+    }
+
+    .submit-btn:hover {
+      background-position: 100% 0;
+      box-shadow: 0 8px 40px rgba(201, 168, 76, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .payment-layout {
+      display: grid;
+      grid-template-columns: minmax(240px, 360px) minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(2rem, 6vw, 4rem);
+    }
+
+    .qr-frame {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      width: min(100%, 360px);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      background: #ffffff;
+      box-shadow: 0 0 60px rgba(201, 168, 76, 0.25);
+      padding: 1rem;
+    }
+
+    .qr-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .qr-label-bottom {
+      color: #111111;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .upi-id-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      max-width: 100%;
+      border: 1px solid rgba(201, 168, 76, 0.25);
+      background: var(--dark2);
+      margin: 1.4rem 0 1.5rem;
+      padding: 1rem 1.35rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .upi-id-box:hover {
+      border-color: var(--gold);
+      background: rgba(201, 168, 76, 0.06);
+    }
+
+    .upi-id-text {
+      overflow-wrap: anywhere;
+      color: var(--gold);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .upi-copy-btn {
+      flex-shrink: 0;
+      border: 0;
+      background: none;
+      color: var(--muted);
+      cursor: none;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .upi-copy-btn:hover {
+      color: var(--gold);
+    }
+
+    .pay-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      list-style: none;
+    }
+
+    .pay-steps li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+
+    .pay-step-num {
+      display: grid;
+      flex-shrink: 0;
+      width: 23px;
+      height: 23px;
+      place-items: center;
+      border: 1px solid var(--gold-dim);
+      border-radius: 50%;
+      color: var(--gold);
+      font-size: 0.65rem;
+      font-weight: 800;
+      margin-top: 0.05rem;
+    }
+
+    .contact-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      background: var(--dark);
+      padding: 2rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .contact-card:hover {
+      background: var(--dark2);
+    }
+
+    .c-icon {
+      display: grid;
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      place-items: center;
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      font-size: 1.1rem;
+    }
+
+    .c-label {
+      color: var(--gold);
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+    }
+
+    .c-value {
+      color: var(--white);
+      font-size: 0.88rem;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    footer {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-top: 1px solid rgba(201, 168, 76, 0.12);
+      padding: 2.5rem clamp(1.5rem, 4vw, 3rem);
+    }
+
+    .footer-brand {
+      color: var(--white);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 900;
+    }
+
+    .footer-brand span {
+      color: var(--gold);
+    }
+
+    .footer-copy {
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 1px;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 1rem;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal {
+      position: relative;
+      width: min(90vw, 460px);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      background: var(--dark);
+      box-shadow: 0 0 80px rgba(201, 168, 76, 0.2);
+      padding: 3rem 2.5rem;
+      text-align: center;
+      animation: modalIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    .modal::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      content: "";
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.85) translateY(30px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .modal-title {
+      color: var(--gold);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 0.7rem;
+    }
+
+    .modal-msg {
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .modal-close {
+      border: 0;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      color: var(--black);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      padding: 0.9rem 2.5rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .modal-close:hover {
+      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 2.5rem;
+      left: 50%;
+      z-index: 600;
+      background: var(--gold);
+      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.4);
+      color: var(--black);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      padding: 0.8rem 2rem;
+      pointer-events: none;
+      text-transform: uppercase;
+      transform: translateX(-50%) translateY(80px);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s, transform 0.7s;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .nav-links,
+      .nav-cta {
+        display: none;
+      }
+
+      .order-grid,
+      .payment-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .steps-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .steps-row::before {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        cursor: auto;
+      }
+
+      .cursor,
+      .cursor-ring {
+        display: none;
+      }
+
+      .hero {
+        min-height: 92vh;
+      }
+
+      .hero-tagline {
+        line-height: 1.8;
+      }
+
+      .hero-welcome {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.45rem;
+      }
+
+      .hero-welcome::after {
+        display: none;
+      }
+
+      .hero-quote {
+        font-size: 1.08rem;
+        margin-bottom: 1.15rem;
+        padding-left: 0.85rem;
+      }
+
+      .hero-tagline span {
+        width: 24px;
+        margin: 0 0.45rem;
+      }
+
+      .hero-stats {
+        bottom: 2rem;
+      }
+
+      .btn-gold,
+      .btn-ghost {
+        width: 100%;
+      }
+
+      .hero-actions {
+        width: 100%;
+      }
+
+      .steps-row,
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .upi-id-box {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav>
+    <a href="#home" class="nav-brand" aria-label="Prem Tayde home">
+      <div class="nav-monogram">PT</div>
+      <div class="nav-name">psy<span>mystics.com</span></div>
+    </a>
+    <div class="nav-links" aria-label="Primary navigation">
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#order">Order</a>
+      <a href="#payment">Payment</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#order" class="nav-cta">Order Now</a>
+  </nav>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="particles" id="particles" aria-hidden="true"></div>
+      <div class="hero-bg" aria-hidden="true">PT</div>
+      <div class="hero-welcome">Welcome to psymystics.com</div>
+      <div class="hero-badge">Mini CSC Centre · Bhokardan, Jalna</div>
+      <h1 class="hero-title">Prem<br><span class="gold">Tayde</span></h1>
+      <p class="hero-quote" id="heroQuote">Kind service, clear guidance, and work done with <span>honesty</span>.</p>
+      <p class="hero-tagline"><span></span> Digital Services <span></span> At Your Doorstep</p>
+      <div class="hero-actions">
+        <a href="#order" class="btn-gold">Place An Order</a>
+        <a href="#services" class="btn-ghost">View Services</a>
+      </div>
+      <div class="hero-stats" aria-label="Service highlights">
+        <div><div class="stat-num">5+</div><div class="stat-label">Services</div></div>
+        <div><div class="stat-num">50%</div><div class="stat-label">Advance Only</div></div>
+        <div><div class="stat-num">Fast</div><div class="stat-label">Delivery</div></div>
+      </div>
+    </section>
+
+    <div class="gold-rule"></div>
+
+    <section class="section reveal" id="services">
+      <p class="sec-eyebrow">What We Offer</p>
+      <h2 class="sec-title">Our <em>Digital</em> Services</h2>
+      <div class="services-grid">
+        <button class="srv-card" type="button" onclick="pickService(this, 'Resume / CV Making')">
+          <span class="srv-arrow">→</span><span class="srv-icon">📄</span>
+          <div class="srv-name">Resume / CV</div>
+          <div class="srv-desc">Professional job-ready resumes for any field or qualification.</div>
+        </button>
+        <button class="srv-card" type="button" onclick="pickService(this, 'Job Application Forms (SSC / Railway / Banking)')">
+          <span class="srv-arrow">→</span><span class="srv-icon">📝</span>
+          <div class="srv-name">Job Applications</div>
+          <div class="srv-desc">SSC, Railway, Banking and government job form filling.</div>
+        </button>
+        <button class="srv-card" type="button" onclick="pickService(this, 'Scholarship / College Forms')">
+          <span class="srv-arrow">→</span><span class="srv-icon">🎓</span>
+          <div class="srv-name">Scholarship Forms</div>
+          <div class="srv-desc">University, college and government scholarship assistance.</div>
+        </button>
+        <button class="srv-card" type="button" onclick="pickService(this, 'PAN Card / Voter Card')">
+          <span class="srv-arrow">→</span><span class="srv-icon">🪪</span>
+          <div class="srv-name">PAN / Voter Card</div>
+          <div class="srv-desc">New applications, corrections and updates for important IDs.</div>
+        </button>
+        <button class="srv-card" type="button" onclick="pickService(this, 'Biodata / Letters / Documents')">
+          <span class="srv-arrow">→</span><span class="srv-icon">📬</span>
+          <div class="srv-name">Biodata & Letters</div>
+          <div class="srv-desc">Typing, formatting and printing support for documents.</div>
+        </button>
+      </div>
+    </section>
+
+    <div class="gold-rule"></div>
+
+    <section class="section reveal" id="process">
+      <p class="sec-eyebrow">Simple Process</p>
+      <h2 class="sec-title">How It <em>Works</em></h2>
+      <div class="steps-row">
+        <div class="step">
+          <div class="step-circle">🖥️</div>
+          <div class="step-num-label">Step 01</div>
+          <div class="step-name">Choose Service</div>
+          <p class="step-info">Select the service you need and share your basic details.</p>
+        </div>
+        <div class="step">
+          <div class="step-circle">📩</div>
+          <div class="step-num-label">Step 02</div>
+          <div class="step-name">Send Documents</div>
+          <p class="step-info">Share required photos, certificates or information on WhatsApp.</p>
+        </div>
+        <div class="step">
+          <div class="step-circle">💳</div>
+          <div class="step-num-label">Step 03</div>
+          <div class="step-name">Pay Advance</div>
+          <p class="step-info">Pay 50% advance through UPI to confirm your order.</p>
+        </div>
+        <div class="step">
+          <div class="step-circle">✅</div>
+          <div class="step-num-label">Step 04</div>
+          <div class="step-name">Get Delivery</div>
+          <p class="step-info">Receive your completed work digitally or collect it in person.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="gold-rule"></div>
+
+    <section class="section reveal" id="order">
+      <p class="sec-eyebrow">Start Your Work</p>
+      <h2 class="sec-title">Place An <em>Order</em></h2>
+      <div class="order-grid">
+        <div class="order-info">
+          <h3>Simple details are enough to begin.</h3>
+          <p>Fill the order form and Prem Tayde will contact you to confirm documents, timeline and final charges.</p>
+          <div class="policy-box">
+            <p><strong>Payment Policy:</strong> 50% advance is required before work starts. Remaining amount can be paid after completion and before final delivery.</p>
+          </div>
+          <ul class="policy-list">
+            <li>Keep your Aadhaar, photo, signature, mark sheets or related documents ready as per service.</li>
+            <li>Urgent work is accepted depending on availability and document completeness.</li>
+            <li>UPI payment name: Prem Milind Tayde, Kotak Bank.</li>
+          </ul>
+        </div>
+
+        <form class="form-box" id="orderForm">
+          <div class="form-row">
+            <div class="fg">
+              <label for="name">Full Name</label>
+              <input id="name" name="name" type="text" placeholder="Your name" required>
+            </div>
+            <div class="fg">
+              <label for="phone">Mobile Number</label>
+              <input id="phone" name="phone" type="tel" placeholder="10-digit number" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="fg">
+              <label for="service">Service</label>
+              <select id="service" name="service" required>
+                <option value="">Select service</option>
+                <option>Resume / CV Making</option>
+                <option>Job Application Forms (SSC / Railway / Banking)</option>
+                <option>Scholarship / College Forms</option>
+                <option>PAN Card / Voter Card</option>
+                <option>Biodata / Letters / Documents</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label for="deadline">Required By</label>
+              <input id="deadline" name="deadline" type="date">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="fg fg-full">
+              <label for="details">Work Details</label>
+              <textarea id="details" name="details" placeholder="Tell me what you need, document type, exam name, correction details, etc."></textarea>
+            </div>
+          </div>
+          <button class="submit-btn" type="submit">Send Order On WhatsApp</button>
+        </form>
+      </div>
+    </section>
+
+    <div class="gold-rule"></div>
+
+    <section class="section reveal" id="payment">
+      <p class="sec-eyebrow">UPI Payment</p>
+      <h2 class="sec-title">Pay With <em>Kotak Bank</em></h2>
+      <div class="payment-layout">
+        <div class="qr-frame">
+          <img src="file:///C:/Users/Prem%20Tayde/Downloads/QR%20Code.jpeg" alt="Kotak Bank UPI QR code for Prem Milind Tayde">
+          <div class="qr-label-bottom">Scan to pay with any UPI app</div>
+        </div>
+        <div class="payment-text">
+          <p>Use the QR code or copy the UPI ID below. Please share the payment screenshot on WhatsApp after paying the advance.</p>
+          <div class="upi-id-box" onclick="copyUpi()" role="button" tabindex="0">
+            <div class="upi-id-text" id="upiText">7058432162@kotakbank</div>
+            <button class="upi-copy-btn" type="button">Copy</button>
+          </div>
+          <ul class="pay-steps">
+            <li><span class="pay-step-num">1</span> Open any UPI app and scan the Kotak Bank QR code.</li>
+            <li><span class="pay-step-num">2</span> Confirm the name Prem Milind Tayde before payment.</li>
+            <li><span class="pay-step-num">3</span> Pay 50% advance and send the screenshot with your order details.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="gold-rule"></div>
+
+    <section class="section reveal" id="contact">
+      <p class="sec-eyebrow">Contact</p>
+      <h2 class="sec-title">Reach <em>Prem Tayde</em></h2>
+      <div class="contact-grid">
+        <a class="contact-card" href="tel:+917058432162">
+          <div class="c-icon">☎</div>
+          <div>
+            <div class="c-label">Phone</div>
+            <div class="c-value">+91 70584 32162</div>
+          </div>
+        </a>
+        <a class="contact-card" href="https://wa.me/917058432162" target="_blank" rel="noopener">
+          <div class="c-icon">☘</div>
+          <div>
+            <div class="c-label">WhatsApp</div>
+            <div class="c-value">Message for orders and payment screenshots</div>
+          </div>
+        </a>
+        <div class="contact-card">
+          <div class="c-icon">⌖</div>
+          <div>
+            <div class="c-label">Location</div>
+            <div class="c-value">Mini CSC Centre, Bhokardan, Jalna</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand">psy<span>mystics.com</span></div>
+    <div class="footer-copy">© 2026 Prem Tayde. All rights reserved.</div>
+  </footer>
+
+  <div class="modal-backdrop" id="modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-icon">✅</div>
+      <div class="modal-title" id="modalTitle">Order Ready</div>
+      <p class="modal-msg">Your WhatsApp message is prepared. Send it to confirm your work and receive the final quote.</p>
+      <button class="modal-close" type="button" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">UPI ID copied</div>
+
+  <script>
+    const upiId = "7058432162@kotakbank";
+    const phoneNumber = "917058432162";
+    const cursor = document.getElementById("cursor");
+    const cursorRing = document.getElementById("cursorRing");
+    const particles = document.getElementById("particles");
+    const orderForm = document.getElementById("orderForm");
+    const modal = document.getElementById("modal");
+    const toast = document.getElementById("toast");
+    const heroQuote = document.getElementById("heroQuote");
+    const kindnessQuotes = [
+      "Kind service, clear guidance, and work done with <span>honesty</span>.",
+      "Every document matters because every person has a <span>dream</span>.",
+      "Helping people with patience is the most powerful <span>digital service</span>.",
+      "A small act of guidance can open a big door for <span>someone</span>.",
+      "Welcome with respect, work with care, deliver with <span>trust</span>."
+    ];
+    let quoteIndex = 0;
+
+    if (window.matchMedia("(pointer: fine)").matches) {
+      window.addEventListener("mousemove", (event) => {
+        cursor.style.left = `${event.clientX}px`;
+        cursor.style.top = `${event.clientY}px`;
+        cursorRing.style.left = `${event.clientX}px`;
+        cursorRing.style.top = `${event.clientY}px`;
+      });
+
+      document.querySelectorAll("a, button, input, select, textarea, .upi-id-box").forEach((item) => {
+        item.addEventListener("mouseenter", () => {
+          cursor.style.width = "18px";
+          cursor.style.height = "18px";
+          cursorRing.style.width = "52px";
+          cursorRing.style.height = "52px";
+        });
+        item.addEventListener("mouseleave", () => {
+          cursor.style.width = "10px";
+          cursor.style.height = "10px";
+          cursorRing.style.width = "36px";
+          cursorRing.style.height = "36px";
+        });
+      });
+    }
+
+    for (let index = 0; index < 38; index += 1) {
+      const dot = document.createElement("span");
+      dot.className = "particle";
+      dot.style.left = `${Math.random() * 100}%`;
+      dot.style.animationDuration = `${8 + Math.random() * 10}s`;
+      dot.style.animationDelay = `${Math.random() * 8}s`;
+      particles.appendChild(dot);
+    }
+
+    setInterval(() => {
+      quoteIndex = (quoteIndex + 1) % kindnessQuotes.length;
+      heroQuote.style.opacity = "0";
+      heroQuote.style.transform = "translateY(8px)";
+      setTimeout(() => {
+        heroQuote.innerHTML = kindnessQuotes[quoteIndex];
+        heroQuote.style.opacity = "1";
+        heroQuote.style.transform = "translateY(0)";
+      }, 240);
+    }, 3600);
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach((item) => revealObserver.observe(item));
+
+    function pickService(card, serviceName) {
+      document.querySelectorAll(".srv-card").forEach((item) => item.classList.remove("selected"));
+      card.classList.add("selected");
+      document.getElementById("service").value = serviceName;
+      document.getElementById("order").scrollIntoView({ behavior: "smooth" });
+    }
+
+    async function copyUpi() {
+      try {
+        await navigator.clipboard.writeText(upiId);
+      } catch (error) {
+        const fallback = document.createElement("textarea");
+        fallback.value = upiId;
+        document.body.appendChild(fallback);
+        fallback.select();
+        document.execCommand("copy");
+        fallback.remove();
+      }
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1800);
+    }
+
+    document.querySelector(".upi-id-box").addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        copyUpi();
+      }
+    });
+
+    orderForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(orderForm);
+      const message = [
+        "Hello Prem Tayde, I want to place an order.",
+        "",
+        `Name: ${formData.get("name")}`,
+        `Mobile: ${formData.get("phone")}`,
+        `Service: ${formData.get("service")}`,
+        `Required By: ${formData.get("deadline") || "Not specified"}`,
+        `Details: ${formData.get("details") || "Not specified"}`,
+        "",
+        `UPI ID: ${upiId}`
+      ].join("\n");
+
+      modal.classList.add("show");
+      window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank", "noopener");
+    });
+
+    function closeModal() {
+      modal.classList.remove("show");
+    }
+
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
