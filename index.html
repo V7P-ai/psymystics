@@ -131,6 +131,18 @@
       color: var(--gold);
     }
 
+    .nav-peace {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border: 1px solid rgba(201, 168, 76, 0.35);
+      border-radius: 50%;
+      color: var(--gold2);
+      font-size: 1.05rem;
+      box-shadow: 0 0 18px rgba(201, 168, 76, 0.12);
+    }
+
     .nav-links {
       display: flex;
       gap: clamp(1rem, 2.2vw, 2rem);
@@ -338,6 +350,48 @@
 
     .hero-quote span {
       color: var(--gold);
+    }
+
+    .buddha-panel {
+      position: relative;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      max-width: 760px;
+      border: 1px solid rgba(201, 168, 76, 0.32);
+      background: linear-gradient(90deg, rgba(201, 168, 76, 0.1), rgba(201, 168, 76, 0.025));
+      margin: 0 0 1.4rem;
+      padding: 0.9rem 1.1rem;
+      box-shadow: 0 0 34px rgba(201, 168, 76, 0.12);
+      animation: fadeUp 1s 0.38s both;
+    }
+
+    .buddha-mark {
+      display: grid;
+      flex-shrink: 0;
+      width: 58px;
+      height: 58px;
+      place-items: center;
+      border: 1px solid rgba(240, 208, 128, 0.52);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(240, 208, 128, 0.18), rgba(8, 8, 8, 0.2));
+      color: var(--gold2);
+      font-size: 1.65rem;
+    }
+
+    .buddha-text strong {
+      display: block;
+      color: var(--gold);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+      margin-bottom: 0.18rem;
+    }
+
+    .buddha-text span {
+      color: rgba(245, 240, 232, 0.72);
+      font-size: 0.82rem;
+      line-height: 1.55;
     }
 
     .hero-tagline {
@@ -660,6 +714,35 @@
 
     .policy-box strong {
       color: var(--gold);
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1px;
+      border: 1px solid rgba(201, 168, 76, 0.12);
+      background: rgba(201, 168, 76, 0.12);
+      margin-top: 1.5rem;
+    }
+
+    .trust-card {
+      background: var(--dark);
+      padding: 1.2rem;
+    }
+
+    .trust-card strong {
+      display: block;
+      color: var(--gold);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .trust-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.55;
     }
 
     .policy-list {
@@ -1127,6 +1210,11 @@
         padding-left: 0.85rem;
       }
 
+      .buddha-panel {
+        align-items: flex-start;
+        width: 100%;
+      }
+
       .hero-tagline span {
         width: 24px;
         margin: 0 0.45rem;
@@ -1170,6 +1258,7 @@
     <a href="#home" class="nav-brand" aria-label="Prem Tayde home">
       <div class="nav-monogram">PT</div>
       <div class="nav-name">psy<span>mystics.com</span></div>
+      <div class="nav-peace" title="Peace and kindness">☸</div>
     </a>
     <div class="nav-links" aria-label="Primary navigation">
       <a href="#services">Services</a>
@@ -1185,9 +1274,16 @@
     <section class="hero" id="home">
       <div class="particles" id="particles" aria-hidden="true"></div>
       <div class="hero-bg" aria-hidden="true">PT</div>
-      <div class="hero-welcome">Welcome to psymystics.com</div>
-      <div class="hero-badge">Mini CSC Centre · Bhokardan, Jalna</div>
+      <div class="hero-welcome">🪷 Peaceful Digital Help · Welcome to psymystics.com</div>
+      <div class="hero-badge">Online Digital Centre · Offline Coming Soon</div>
       <h1 class="hero-title">Prem<br><span class="gold">Tayde</span></h1>
+      <div class="buddha-panel">
+        <div class="buddha-mark">☸</div>
+        <div class="buddha-text">
+          <strong>Gautam Buddha Peace Blessing</strong>
+          <span>Peace, kindness and honest digital help for every customer. Lotus-inspired service with permission-first work.</span>
+        </div>
+      </div>
       <p class="hero-quote" id="heroQuote">Kind service, clear guidance, and work done with <span>honesty</span>.</p>
       <p class="hero-tagline"><span></span> Digital Services <span></span> At Your Doorstep</p>
       <div class="hero-actions">
@@ -1285,6 +1381,20 @@
           <div class="policy-box">
             <p><strong>Payment Policy:</strong> 50% advance is required before work starts. Remaining amount can be paid after completion and before final delivery.</p>
           </div>
+          <div class="trust-grid">
+            <div class="trust-card">
+              <strong>Permission First</strong>
+              <span>No document, detail or work is accessed or processed without your clear permission.</span>
+            </div>
+            <div class="trust-card">
+              <strong>Secure Handling</strong>
+              <span>Customer details are used only for order confirmation and service communication.</span>
+            </div>
+            <div class="trust-card">
+              <strong>Online Centre</strong>
+              <span>Prem Tayde Digital Services is online now. Offline centre visit support is coming soon.</span>
+            </div>
+          </div>
           <ul class="policy-list">
             <li>Keep your Aadhaar, photo, signature, mark sheets or related documents ready as per service.</li>
             <li>Urgent work is accepted depending on availability and document completeness.</li>
@@ -1381,7 +1491,7 @@
           <div class="c-icon">⌖</div>
           <div>
             <div class="c-label">Location</div>
-            <div class="c-value">Mini CSC Centre, Bhokardan, Jalna</div>
+            <div class="c-value">Online Digital Centre · Offline Coming Soon</div>
           </div>
         </div>
       </div>
@@ -1390,7 +1500,7 @@
 
   <footer>
     <div class="footer-brand">psy<span>mystics.com</span></div>
-    <div class="footer-copy">© 2026 Prem Tayde. All rights reserved.</div>
+    <div class="footer-copy">🪷 Peace · Original website by Prem Tayde · No copyright claim intended.</div>
   </footer>
 
   <div class="modal-backdrop" id="modal">
