@@ -300,17 +300,18 @@
       will-change: transform;
     }
 
-    .buddha-hero-art::before {
+    .hero-statue-photo {
       position: relative;
       z-index: 1;
       display: block;
       width: 100%;
+      height: auto;
       aspect-ratio: 4 / 5.2;
+      object-fit: cover;
+      object-position: center;
       border: 1px solid rgba(240, 208, 128, 0.12);
       border-radius: 2px;
-      background: url("./buddha-statues-premium.jpg") center / cover no-repeat;
       box-shadow: inset 0 0 42px rgba(8, 8, 8, 0.08);
-      content: "";
       filter: saturate(1.08) contrast(1.08) brightness(0.92) drop-shadow(0 0 16px rgba(240, 208, 128, 0.13));
       transform: translateZ(26px);
     }
@@ -915,7 +916,7 @@
     .policy-list li::before {
       flex-shrink: 0;
       color: var(--gold);
-      content: "◆";
+      content: "â—†";
       font-size: 0.5rem;
       margin-top: 0.3rem;
     }
@@ -1439,7 +1440,7 @@
     <a href="#home" class="nav-brand" aria-label="Prem Tayde home">
       <div class="nav-monogram">PT</div>
       <div class="nav-name">psy<span>mystics.com</span></div>
-      <div class="nav-peace" title="Peace and kindness">☸</div>
+      <div class="nav-peace" title="Peace and kindness">â˜¸</div>
     </a>
     <div class="nav-links" aria-label="Primary navigation">
       <a href="#services">Services</a>
@@ -1456,6 +1457,7 @@
       <div class="particles" id="particles" aria-hidden="true"></div>
       <div class="hero-bg" aria-hidden="true">PT</div>
       <div class="buddha-hero-art" aria-label="Three peaceful Buddha statues in moss garden">
+        <img class="hero-statue-photo" src="buddha-statues-premium.jpg" alt="Three peaceful Buddha statues in a moss garden">
         <svg viewBox="0 0 320 390" role="img" aria-labelledby="buddhaTitle">
           <title id="buddhaTitle">Three peaceful Buddha statues in a moss garden</title>
           <defs>
@@ -1505,11 +1507,11 @@
           <span class="flower-line"></span>
         </div>
       </div>
-      <div class="hero-welcome">🪷 Peaceful Digital Help · Welcome to psymystics.com</div>
-      <div class="hero-badge">Online Digital Centre · Offline Coming Soon</div>
+      <div class="hero-welcome">ðŸª· Peaceful Digital Help Â· Welcome to psymystics.com</div>
+      <div class="hero-badge">Online Digital Centre Â· Offline Coming Soon</div>
       <h1 class="hero-title">Prem<br><span class="gold">Tayde</span></h1>
       <div class="buddha-panel">
-        <div class="buddha-mark">☸</div>
+        <div class="buddha-mark">â˜¸</div>
         <div class="buddha-text">
           <strong>Peaceful Digital Services</strong>
           <span>Work handled with honesty, care and permission.</span>
@@ -1535,32 +1537,32 @@
       <h2 class="sec-title">Our <em>Digital</em> Services</h2>
       <div class="services-grid">
         <button class="srv-card" type="button" onclick="pickService(this, 'Resume / CV Making')">
-          <span class="srv-arrow">→</span><span class="srv-icon">📄</span>
+          <span class="srv-arrow">â†’</span><span class="srv-icon">ðŸ“„</span>
           <div class="srv-name">Resume / CV</div>
           <div class="srv-desc">Professional job-ready resumes for any field or qualification.</div>
         </button>
         <button class="srv-card" type="button" onclick="pickService(this, 'Job Application Forms (SSC / Railway / Banking)')">
-          <span class="srv-arrow">→</span><span class="srv-icon">📝</span>
+          <span class="srv-arrow">â†’</span><span class="srv-icon">ðŸ“</span>
           <div class="srv-name">Job Applications</div>
           <div class="srv-desc">SSC, Railway, Banking and government job form filling.</div>
         </button>
         <button class="srv-card" type="button" onclick="pickService(this, 'Scholarship / College Forms')">
-          <span class="srv-arrow">→</span><span class="srv-icon">🎓</span>
+          <span class="srv-arrow">â†’</span><span class="srv-icon">ðŸŽ“</span>
           <div class="srv-name">Scholarship Forms</div>
           <div class="srv-desc">University, college and government scholarship assistance.</div>
         </button>
         <button class="srv-card" type="button" onclick="pickService(this, 'PAN Card / Voter Card')">
-          <span class="srv-arrow">→</span><span class="srv-icon">🪪</span>
+          <span class="srv-arrow">â†’</span><span class="srv-icon">ðŸªª</span>
           <div class="srv-name">PAN / Voter Card</div>
           <div class="srv-desc">New applications, corrections and updates for important IDs.</div>
         </button>
         <button class="srv-card" type="button" onclick="pickService(this, 'Biodata / Letters / Documents')">
-          <span class="srv-arrow">→</span><span class="srv-icon">📬</span>
+          <span class="srv-arrow">â†’</span><span class="srv-icon">ðŸ“¬</span>
           <div class="srv-name">Biodata & Letters</div>
           <div class="srv-desc">Typing, formatting and printing support for documents.</div>
         </button>
         <button class="srv-card" type="button" onclick="pickService(this, 'Design Cards / Pamphlets / Digital Cards / All Purpose Designs')">
-          <span class="srv-arrow">→</span><span class="srv-icon">🎨</span>
+          <span class="srv-arrow">â†’</span><span class="srv-icon">ðŸŽ¨</span>
           <div class="srv-name">Design Cards & More</div>
           <div class="srv-desc">Pamphlets, posters, invitations, visiting cards, digital cards and all-purpose designs.</div>
         </button>
@@ -1574,25 +1576,25 @@
       <h2 class="sec-title">How It <em>Works</em></h2>
       <div class="steps-row">
         <div class="step">
-          <div class="step-circle">🖥️</div>
+          <div class="step-circle">ðŸ–¥ï¸</div>
           <div class="step-num-label">Step 01</div>
           <div class="step-name">Choose Service</div>
           <p class="step-info">Select the service you need and share your basic details.</p>
         </div>
         <div class="step">
-          <div class="step-circle">📩</div>
+          <div class="step-circle">ðŸ“©</div>
           <div class="step-num-label">Step 02</div>
           <div class="step-name">Send Documents</div>
           <p class="step-info">Share required photos, certificates or information on WhatsApp.</p>
         </div>
         <div class="step">
-          <div class="step-circle">💳</div>
+          <div class="step-circle">ðŸ’³</div>
           <div class="step-num-label">Step 03</div>
           <div class="step-name">Pay Advance</div>
           <p class="step-info">Pay 50% advance through UPI to confirm your order.</p>
         </div>
         <div class="step">
-          <div class="step-circle">✅</div>
+          <div class="step-circle">âœ…</div>
           <div class="step-num-label">Step 04</div>
           <div class="step-name">Get Delivery</div>
           <p class="step-info">Receive your completed work digitally or collect it in person.</p>
@@ -1705,14 +1707,14 @@
       <h2 class="sec-title">Reach <em>Prem Tayde</em></h2>
       <div class="contact-grid">
         <a class="contact-card" href="tel:+917058432162">
-          <div class="c-icon">☎</div>
+          <div class="c-icon">â˜Ž</div>
           <div>
             <div class="c-label">Phone</div>
             <div class="c-value">+91 70584 32162</div>
           </div>
         </a>
         <a class="contact-card" href="https://wa.me/917058432162" target="_blank" rel="noopener">
-          <div class="c-icon">☘</div>
+          <div class="c-icon">â˜˜</div>
           <div>
             <div class="c-label">WhatsApp</div>
             <div class="c-value">Message for orders and payment screenshots</div>
@@ -1726,10 +1728,10 @@
           </div>
         </a>
         <div class="contact-card">
-          <div class="c-icon">⌖</div>
+          <div class="c-icon">âŒ–</div>
           <div>
             <div class="c-label">Location</div>
-            <div class="c-value">Online Digital Centre · Offline Coming Soon</div>
+            <div class="c-value">Online Digital Centre Â· Offline Coming Soon</div>
           </div>
         </div>
       </div>
@@ -1738,12 +1740,12 @@
 
   <footer>
     <div class="footer-brand">psy<span>mystics.com</span></div>
-    <div class="footer-copy">© 2026 Prem Tayde. All rights reserved.</div>
+    <div class="footer-copy">Â© 2026 Prem Tayde. All rights reserved.</div>
   </footer>
 
   <div class="modal-backdrop" id="modal">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal-icon">✅</div>
+      <div class="modal-icon">âœ…</div>
       <div class="modal-title" id="modalTitle">Order Ready</div>
       <p class="modal-msg">Your WhatsApp message is prepared. Send it to confirm your work and receive the final quote.</p>
       <button class="modal-close" type="button" onclick="closeModal()">Close</button>
@@ -1980,3 +1982,4 @@
   </script>
 </body>
 </html>
+
