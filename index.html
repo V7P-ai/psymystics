@@ -218,6 +218,7 @@
       justify-content: center;
       overflow: hidden;
       padding: 7rem clamp(1.5rem, 4vw, 3rem) 8rem;
+      perspective: 1200px;
     }
 
     .hero::before {
@@ -243,14 +244,17 @@
       border-radius: 50%;
       background: var(--gold);
       opacity: 0;
+      box-shadow: 0 0 10px rgba(240, 208, 128, 0.6);
       animation: floatP linear infinite;
+      transform: translate3d(var(--repel-x, 0px), 100vh, 0) scale(0);
+      transition: box-shadow 0.18s ease, opacity 0.18s ease;
     }
 
     @keyframes floatP {
-      0% { opacity: 0; transform: translateY(100vh) scale(0); }
+      0% { opacity: 0; transform: translate3d(var(--repel-x, 0px), 100vh, 0) scale(0); }
       10% { opacity: 0.7; }
       90% { opacity: 0.3; }
-      100% { opacity: 0; transform: translateY(-20px) scale(1.5); }
+      100% { opacity: 0; transform: translate3d(var(--repel-x, 0px), -20px, 0) scale(1.5); }
     }
 
     .hero-bg {
@@ -264,8 +268,154 @@
       letter-spacing: -18px;
       line-height: 1;
       pointer-events: none;
-      transform: translateY(-50%);
+      transform: translate3d(var(--hero-bg-x, 0px), calc(-50% + var(--hero-bg-y, 0px)), 0);
       user-select: none;
+      transition: transform 0.18s ease-out;
+    }
+
+    .buddha-hero-art {
+      --parallax-x: 0px;
+      --parallax-y: 0px;
+      --tilt-x: 0deg;
+      --tilt-y: 0deg;
+      --tilt-glow-x: 50%;
+      --tilt-glow-y: 18%;
+      position: absolute;
+      right: clamp(1.5rem, 6vw, 4.5rem);
+      top: 52%;
+      z-index: 1;
+      width: min(32vw, 360px);
+      min-width: 300px;
+      border: 10px solid rgba(22, 22, 22, 0.96);
+      border-radius: 4px;
+      background:
+        radial-gradient(circle at var(--tilt-glow-x) var(--tilt-glow-y), rgba(240, 208, 128, 0.28), transparent 34%),
+        linear-gradient(145deg, rgba(25, 21, 14, 0.92), rgba(8, 8, 8, 0.86));
+      padding: 12px;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.72), 0 0 70px rgba(201, 168, 76, 0.16);
+      transform: translate3d(var(--parallax-x), calc(-44% + var(--parallax-y)), 0) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+      transform-style: preserve-3d;
+      transition: box-shadow 0.25s ease, background 0.25s ease;
+      animation: buddhaReveal 1s 0.42s both, buddhaFloat 7s 1.45s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .buddha-hero-art::before {
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 5.2;
+      border: 1px solid rgba(240, 208, 128, 0.12);
+      border-radius: 2px;
+      background: url("./buddha-statues-premium.jpg") center / cover no-repeat;
+      box-shadow: inset 0 0 42px rgba(8, 8, 8, 0.08);
+      content: "";
+      filter: saturate(1.08) contrast(1.08) brightness(0.92) drop-shadow(0 0 16px rgba(240, 208, 128, 0.13));
+      transform: translateZ(26px);
+    }
+
+    .buddha-hero-art::after {
+      position: absolute;
+      inset: 0.55rem;
+      border: 1px solid rgba(240, 208, 128, 0.18);
+      border-radius: 5px;
+      background:
+        radial-gradient(circle at 28% 14%, rgba(240, 208, 128, 0.2) 0 2px, transparent 3px),
+        radial-gradient(circle at 78% 22%, rgba(240, 208, 128, 0.18) 0 1.5px, transparent 3px),
+        linear-gradient(120deg, transparent 0 40%, rgba(255, 241, 184, 0.08) 48%, transparent 56% 100%);
+      content: "";
+      pointer-events: none;
+      animation: sacredShimmer 5.8s ease-in-out infinite;
+      transform: translateZ(38px);
+    }
+
+    .buddha-hero-art svg {
+      display: none;
+      width: 100%;
+      height: auto;
+    }
+
+    .premium-flowers {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.15rem;
+      min-height: 42px;
+      border-top: 1px solid rgba(201, 168, 76, 0.18);
+      margin-top: 1rem;
+      padding-top: 0.9rem;
+      transform: translateZ(34px);
+    }
+
+    .flower-line {
+      width: min(24%, 76px);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(240, 208, 128, 0.74), transparent);
+    }
+
+    .flower-bloom {
+      position: relative;
+      display: block;
+      width: 32px;
+      height: 32px;
+      filter: drop-shadow(0 0 12px rgba(240, 208, 128, 0.24));
+      animation: flowerPulse 4.6s ease-in-out infinite;
+    }
+
+    .flower-bloom::before,
+    .flower-bloom::after,
+    .flower-bloom i {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      display: block;
+      width: 11px;
+      height: 19px;
+      border: 1px solid rgba(255, 238, 187, 0.72);
+      border-radius: 50% 50% 44% 44%;
+      background: radial-gradient(circle at 50% 24%, rgba(255, 247, 214, 0.9), rgba(240, 208, 128, 0.35) 56%, rgba(93, 126, 50, 0.08));
+      content: "";
+      transform-origin: 50% 92%;
+    }
+
+    .flower-bloom::before {
+      transform: translate(-50%, -92%) rotate(0deg);
+    }
+
+    .flower-bloom::after {
+      transform: translate(-50%, -92%) rotate(72deg);
+    }
+
+    .flower-bloom i:nth-child(1) {
+      transform: translate(-50%, -92%) rotate(144deg);
+    }
+
+    .flower-bloom i:nth-child(2) {
+      transform: translate(-50%, -92%) rotate(216deg);
+    }
+
+    .flower-bloom i:nth-child(3) {
+      transform: translate(-50%, -92%) rotate(288deg);
+    }
+
+    .flower-bloom i:nth-child(4) {
+      width: 8px;
+      height: 8px;
+      border-color: rgba(140, 104, 32, 0.7);
+      border-radius: 50%;
+      background: var(--gold2);
+      transform: translate(-50%, -50%);
+    }
+
+    .flower-bloom.alt {
+      width: 27px;
+      height: 27px;
+      opacity: 0.78;
+      transform: rotate(18deg);
+      animation-delay: -1.8s;
     }
 
     .hero-welcome,
@@ -1145,6 +1295,26 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    @keyframes buddhaReveal {
+      from { opacity: 0; transform: translate3d(var(--parallax-x), calc(-38% + var(--parallax-y)), 0) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) scale(0.96); }
+      to { opacity: 1; transform: translate3d(var(--parallax-x), calc(-44% + var(--parallax-y)), 0) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) scale(1); }
+    }
+
+    @keyframes buddhaFloat {
+      0%, 100% { transform: translate3d(var(--parallax-x), calc(-44% + var(--parallax-y)), 0) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)); }
+      50% { transform: translate3d(calc(var(--parallax-x) - 4px), calc(-47% + var(--parallax-y)), 0) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)); }
+    }
+
+    @keyframes sacredShimmer {
+      0%, 100% { opacity: 0.5; transform: translateY(0); }
+      50% { opacity: 0.95; transform: translateY(-4px); }
+    }
+
+    @keyframes flowerPulse {
+      0%, 100% { opacity: 0.78; transform: translateY(0) scale(0.96); }
+      50% { opacity: 1; transform: translateY(-2px) scale(1.04); }
+    }
+
     .reveal {
       opacity: 0;
       transform: translateY(28px);
@@ -1165,6 +1335,17 @@
       .order-grid,
       .payment-layout {
         grid-template-columns: 1fr;
+      }
+
+      .buddha-hero-art {
+        position: relative;
+        right: auto;
+        top: auto;
+        width: min(100%, 360px);
+        margin: 0 0 1.4rem;
+        transform: none;
+        transform-style: flat;
+        animation: fadeUp 1s 0.22s both;
       }
 
       .steps-row {
@@ -1274,17 +1455,67 @@
     <section class="hero" id="home">
       <div class="particles" id="particles" aria-hidden="true"></div>
       <div class="hero-bg" aria-hidden="true">PT</div>
+      <div class="buddha-hero-art" aria-label="Three peaceful Buddha statues in moss garden">
+        <svg viewBox="0 0 320 390" role="img" aria-labelledby="buddhaTitle">
+          <title id="buddhaTitle">Three peaceful Buddha statues in a moss garden</title>
+          <defs>
+            <radialGradient id="haloGlow" cx="50%" cy="34%" r="45%">
+              <stop offset="0%" stop-color="#f0d080" stop-opacity="0.32"/>
+              <stop offset="72%" stop-color="#c9a84c" stop-opacity="0.08"/>
+              <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="160" cy="132" r="118" fill="url(#haloGlow)"/>
+          <g fill="none" stroke="#d9bd6a" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M82 142c8-48 38-78 78-78s70 30 78 78" stroke-width="3"/>
+            <path d="M101 148c6 53 29 90 59 90s53-37 59-90" stroke-width="3"/>
+            <path d="M124 149c10-8 21-8 31 0" stroke-width="2"/>
+            <path d="M166 149c10-8 21-8 31 0" stroke-width="2"/>
+            <path d="M134 165c7 5 14 5 21 0" stroke-width="2"/>
+            <path d="M166 165c7 5 14 5 21 0" stroke-width="2"/>
+            <path d="M160 164c-6 22-5 33 8 35" stroke-width="2"/>
+            <path d="M137 213c15 12 31 12 46 0" stroke-width="2"/>
+            <path d="M91 145c-16 7-18 34 0 45" stroke-width="2"/>
+            <path d="M229 145c16 7 18 34 0 45" stroke-width="2"/>
+            <path d="M106 94c-10-20 0-42 22-50" stroke-width="2"/>
+            <path d="M130 69c-6-22 8-43 30-48" stroke-width="2"/>
+            <path d="M160 64c-1-24 18-41 40-35" stroke-width="2"/>
+            <path d="M188 76c12-18 37-17 49 2" stroke-width="2"/>
+            <path d="M104 94c22 14 48 16 78 1" stroke-width="2"/>
+            <path d="M139 88c28 16 58 16 91 2" stroke-width="2"/>
+            <path d="M118 245c-35 14-58 38-70 73" stroke-width="2.5"/>
+            <path d="M202 245c35 14 58 38 70 73" stroke-width="2.5"/>
+            <path d="M89 318c37 24 105 24 142 0" stroke-width="2.5"/>
+            <path d="M160 242v69" stroke-width="2"/>
+            <path d="M128 292c16 11 48 11 64 0" stroke-width="2"/>
+            <path d="M92 342c18-22 40-22 68 0c28-22 50-22 68 0" stroke-width="2"/>
+            <path d="M69 351c24-26 54-27 91-3c37-24 67-23 91 3" stroke-width="2"/>
+          </g>
+          <g fill="none" stroke="#f0d080" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+            <path d="M160 331c-18-16-31-16-42 0c14 3 28 3 42 0Z" stroke-width="2"/>
+            <path d="M160 331c18-16 31-16 42 0c-14 3-28 3-42 0Z" stroke-width="2"/>
+            <path d="M160 331c-8-18-8-30 0-42c8 12 8 24 0 42Z" stroke-width="2"/>
+          </g>
+        </svg>
+        <div class="premium-flowers" aria-hidden="true">
+          <span class="flower-line"></span>
+          <span class="flower-bloom alt"><i></i><i></i><i></i><i></i></span>
+          <span class="flower-bloom"><i></i><i></i><i></i><i></i></span>
+          <span class="flower-bloom alt"><i></i><i></i><i></i><i></i></span>
+          <span class="flower-line"></span>
+        </div>
+      </div>
       <div class="hero-welcome">🪷 Peaceful Digital Help · Welcome to psymystics.com</div>
       <div class="hero-badge">Online Digital Centre · Offline Coming Soon</div>
       <h1 class="hero-title">Prem<br><span class="gold">Tayde</span></h1>
       <div class="buddha-panel">
         <div class="buddha-mark">☸</div>
         <div class="buddha-text">
-          <strong>Gautam Buddha Peace Blessing</strong>
-          <span>Peace, kindness and honest digital help for every customer. Lotus-inspired service with permission-first work.</span>
+          <strong>Peaceful Digital Services</strong>
+          <span>Work handled with honesty, care and permission.</span>
         </div>
       </div>
-      <p class="hero-quote" id="heroQuote">Kind service, clear guidance, and work done with <span>honesty</span>.</p>
+      <p class="hero-quote" id="heroQuote">Clear guidance, careful work, and service done with <span>honesty</span>.</p>
       <p class="hero-tagline"><span></span> Digital Services <span></span> At Your Doorstep</p>
       <div class="hero-actions">
         <a href="#order" class="btn-gold">Place An Order</a>
@@ -1487,6 +1718,13 @@
             <div class="c-value">Message for orders and payment screenshots</div>
           </div>
         </a>
+        <a class="contact-card" href="mailto:V7pt.ms@gmail.com">
+          <div class="c-icon">@</div>
+          <div>
+            <div class="c-label">Email</div>
+            <div class="c-value">V7pt.ms@gmail.com</div>
+          </div>
+        </a>
         <div class="contact-card">
           <div class="c-icon">⌖</div>
           <div>
@@ -1500,7 +1738,7 @@
 
   <footer>
     <div class="footer-brand">psy<span>mystics.com</span></div>
-    <div class="footer-copy">🪷 Peace · Original website by Prem Tayde · No copyright claim intended.</div>
+    <div class="footer-copy">© 2026 Prem Tayde. All rights reserved.</div>
   </footer>
 
   <div class="modal-backdrop" id="modal">
@@ -1520,6 +1758,10 @@
     const cursor = document.getElementById("cursor");
     const cursorRing = document.getElementById("cursorRing");
     const particles = document.getElementById("particles");
+    const particleDots = [];
+    const hero = document.getElementById("home");
+    const heroBg = document.querySelector(".hero-bg");
+    const buddhaArt = document.querySelector(".buddha-hero-art");
     const orderForm = document.getElementById("orderForm");
     const modal = document.getElementById("modal");
     const toast = document.getElementById("toast");
@@ -1532,13 +1774,25 @@
       "Welcome with respect, work with care, deliver with <span>trust</span>."
     ];
     let quoteIndex = 0;
+    let cursorX = window.innerWidth / 2;
+    let cursorY = window.innerHeight / 2;
+    let scrollTicking = false;
 
     if (window.matchMedia("(pointer: fine)").matches) {
       window.addEventListener("mousemove", (event) => {
+        cursorX = event.clientX;
+        cursorY = event.clientY;
         cursor.style.left = `${event.clientX}px`;
         cursor.style.top = `${event.clientY}px`;
         cursorRing.style.left = `${event.clientX}px`;
         cursorRing.style.top = `${event.clientY}px`;
+        updateBuddhaTilt(event);
+        updateReactiveParticles(event);
+      });
+
+      hero.addEventListener("mouseleave", () => {
+        resetBuddhaTilt();
+        resetReactiveParticles();
       });
 
       document.querySelectorAll("a, button, input, select, textarea, .upi-id-box").forEach((item) => {
@@ -1564,7 +1818,86 @@
       dot.style.animationDuration = `${8 + Math.random() * 10}s`;
       dot.style.animationDelay = `${Math.random() * 8}s`;
       particles.appendChild(dot);
+      particleDots.push(dot);
     }
+
+    function updateBuddhaTilt(event) {
+      if (!buddhaArt) return;
+      const rect = buddhaArt.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const rotateY = ((event.clientX - centerX) / rect.width) * 12;
+      const rotateX = -((event.clientY - centerY) / rect.height) * 10;
+      const glowX = ((event.clientX - rect.left) / rect.width) * 100;
+      const glowY = ((event.clientY - rect.top) / rect.height) * 100;
+      buddhaArt.style.setProperty("--tilt-x", `${Math.max(-9, Math.min(9, rotateX)).toFixed(2)}deg`);
+      buddhaArt.style.setProperty("--tilt-y", `${Math.max(-11, Math.min(11, rotateY)).toFixed(2)}deg`);
+      buddhaArt.style.setProperty("--tilt-glow-x", `${Math.max(12, Math.min(88, glowX)).toFixed(1)}%`);
+      buddhaArt.style.setProperty("--tilt-glow-y", `${Math.max(8, Math.min(82, glowY)).toFixed(1)}%`);
+      buddhaArt.style.boxShadow = "0 0 92px rgba(240, 208, 128, 0.28), inset 0 0 34px rgba(240, 208, 128, 0.07)";
+    }
+
+    function resetBuddhaTilt() {
+      if (!buddhaArt) return;
+      buddhaArt.style.setProperty("--tilt-x", "0deg");
+      buddhaArt.style.setProperty("--tilt-y", "0deg");
+      buddhaArt.style.setProperty("--tilt-glow-x", "50%");
+      buddhaArt.style.setProperty("--tilt-glow-y", "18%");
+      buddhaArt.style.boxShadow = "";
+    }
+
+    function updateReactiveParticles(event) {
+      particleDots.forEach((dot) => {
+        const rect = dot.getBoundingClientRect();
+        const dx = rect.left + rect.width / 2 - event.clientX;
+        const dy = rect.top + rect.height / 2 - event.clientY;
+        const distance = Math.hypot(dx, dy);
+        if (distance < 145) {
+          const strength = (145 - distance) / 145;
+          dot.style.setProperty("--repel-x", `${(dx / Math.max(distance, 1) * strength * 34).toFixed(1)}px`);
+          dot.style.opacity = `${0.45 + strength * 0.55}`;
+          dot.style.boxShadow = `0 0 ${12 + strength * 28}px rgba(240, 208, 128, ${0.45 + strength * 0.45})`;
+        } else {
+          dot.style.setProperty("--repel-x", "0px");
+          dot.style.boxShadow = "";
+        }
+      });
+    }
+
+    function resetReactiveParticles() {
+      particleDots.forEach((dot) => {
+        dot.style.setProperty("--repel-x", "0px");
+        dot.style.boxShadow = "";
+      });
+    }
+
+    function updatePremiumParallax() {
+      scrollTicking = false;
+      const heroRect = hero.getBoundingClientRect();
+      const progress = Math.max(-1, Math.min(1, -heroRect.top / Math.max(heroRect.height, 1)));
+      const mouseX = (cursorX / window.innerWidth - 0.5) || 0;
+      const mouseY = (cursorY / window.innerHeight - 0.5) || 0;
+
+      if (heroBg) {
+        heroBg.style.setProperty("--hero-bg-x", `${(mouseX * 22).toFixed(1)}px`);
+        heroBg.style.setProperty("--hero-bg-y", `${(progress * -70 + mouseY * 12).toFixed(1)}px`);
+      }
+
+      if (buddhaArt && window.innerWidth > 900) {
+        buddhaArt.style.setProperty("--parallax-x", `${(mouseX * -18).toFixed(1)}px`);
+        buddhaArt.style.setProperty("--parallax-y", `${(progress * 44 + mouseY * -10).toFixed(1)}px`);
+      }
+    }
+
+    function requestParallaxUpdate() {
+      if (scrollTicking) return;
+      scrollTicking = true;
+      window.requestAnimationFrame(updatePremiumParallax);
+    }
+
+    window.addEventListener("scroll", requestParallaxUpdate, { passive: true });
+    window.addEventListener("resize", requestParallaxUpdate);
+    requestParallaxUpdate();
 
     setInterval(() => {
       quoteIndex = (quoteIndex + 1) % kindnessQuotes.length;
