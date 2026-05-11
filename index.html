@@ -3,51 +3,326 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Psymystics</title>
+    <title>Psymystics | Prem Tayde Digital Services</title>
     <style>
-        /* ✅ Global Emoji Fix - ek line mein sab set */
         * {
-            font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", system-ui, sans-serif !important;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
         }
         
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
+            background: #0a0806;
+            font-family: 'Segoe UI', system-ui, 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif;
+            color: #e8e0c8;
+            overflow-x: hidden;
+        }
+        
+        /* Cursor */
+        .cursor {
+            width: 10px;
+            height: 10px;
+            background: #f0d080;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: width 0.2s, height 0.2s;
+        }
+        
+        .cursor-ring {
+            width: 36px;
+            height: 36px;
+            border: 1.5px solid rgba(240, 208, 128, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: width 0.2s, height 0.2s;
+        }
+        
+        /* Navigation */
+        nav {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
+            padding: 20px 40px;
+            background: rgba(10, 8, 6, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(240, 208, 128, 0.2);
         }
         
-        .container {
-            background: rgba(255,255,255,0.95);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        
+        .nav-monogram {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #f0d080, #c9a84c);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #0a0806;
+        }
+        
+        .nav-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #e8e0c8;
+        }
+        
+        .nav-name span {
+            color: #f0d080;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 28px;
+        }
+        
+        .nav-links a {
+            color: #e8e0c8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #f0d080;
+        }
+        
+        .nav-cta {
+            background: linear-gradient(135deg, #f0d080, #c9a84c);
+            color: #0a0806;
+            padding: 10px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            max-width: 600px;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
         }
         
-        h1 {
-            color: #764ba2;
-            font-size: 2.5em;
-        }
-        
-        img {
-            max-width: 100%;
-            border-radius: 10px;
+        .hero-title {
+            font-size: 5rem;
             margin: 20px 0;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .hero-title .gold {
+            color: #f0d080;
+        }
+        
+        .btn-gold, .btn-ghost {
+            padding: 14px 32px;
+            border-radius: 40px;
+            text-decoration: none;
+            margin: 10px;
+            display: inline-block;
+            font-weight: 600;
+        }
+        
+        .btn-gold {
+            background: linear-gradient(135deg, #f0d080, #c9a84c);
+            color: #0a0806;
+        }
+        
+        .btn-ghost {
+            border: 1.5px solid #f0d080;
+            color: #f0d080;
+        }
+        
+        /* Sections */
+        .section {
+            padding: 80px 40px;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        
+        .sec-title {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .sec-title em {
+            color: #f0d080;
+            font-style: normal;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        
+        .srv-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(240, 208, 128, 0.2);
+            border-radius: 20px;
+            padding: 28px;
+            text-align: left;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .srv-card:hover {
+            border-color: #f0d080;
+            transform: translateY(-5px);
+        }
+        
+        /* Image */
+        .hero-statue-photo {
+            max-width: 280px;
+            border-radius: 20px;
+            margin: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        
+        /* QR */
+        .qr-frame img {
+            max-width: 240px;
+            border-radius: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid rgba(240, 208, 128, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .section {
+                padding: 40px 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>✨ Psymystics ✨</h1>
-        <img src="djedj-statues-5639186.jpg" alt="Statues" onerror="this.src='https://via.placeholder.com/600x400?text=Image+Coming+Soon'">
-        <p>Welcome to the mystical world of Psymystics 🌟</p>
-        <p>🔮 Wisdom • 💫 Energy • 🕉️ Peace</p>
-    </div>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    
+    <nav>
+        <a href="#home" class="nav-brand">
+            <div class="nav-monogram">PT</div>
+            <div class="nav-name">psy<span>mystics.com</span></div>
+        </a>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#order">Order</a>
+            <a href="#payment">Payment</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <a href="#order" class="nav-cta">Order Now</a>
+    </nav>
+    
+    <main>
+        <section class="hero" id="home">
+            <img class="hero-statue-photo" src="djedj-statues-5639186.jpg" alt="Buddha Statues" onerror="this.src='https://placehold.co/400x300?text=Image+Loading'">
+            <h1 class="hero-title">Prem<br><span class="gold">Tayde</span></h1>
+            <p style="max-width: 600px; margin: 20px auto;">Clear guidance, careful work, and service done with honesty.</p>
+            <div class="hero-actions">
+                <a href="#order" class="btn-gold">Place An Order</a>
+                <a href="#services" class="btn-ghost">View Services</a>
+            </div>
+        </section>
+        
+        <section class="section" id="services">
+            <h2 class="sec-title">Our <em>Digital</em> Services</h2>
+            <div class="services-grid">
+                <div class="srv-card">📄 Resume / CV Making</div>
+                <div class="srv-card">📝 Job Application Forms</div>
+                <div class="srv-card">🎓 Scholarship / College Forms</div>
+                <div class="srv-card">🪪 PAN Card / Voter Card</div>
+                <div class="srv-card">📬 Biodata & Letters</div>
+                <div class="srv-card">🎨 Design Cards & Pamphlets</div>
+            </div>
+        </section>
+        
+        <section class="section" id="order">
+            <h2 class="sec-title">Place An <em>Order</em></h2>
+            <div style="text-align: center;">
+                <a href="https://wa.me/917058432162" class="btn-gold" style="font-size: 1.2rem;">📱 Order on WhatsApp →</a>
+            </div>
+        </section>
+        
+        <section class="section" id="payment">
+            <h2 class="sec-title">Pay With <em>Kotak Bank</em></h2>
+            <div style="text-align: center;">
+                <div class="qr-frame">
+                    <img src="https://raw.githubusercontent.com/V7P-ai/psymystics/main/QR%20Code.jpeg" alt="UPI QR Code" onerror="this.src='https://placehold.co/240x240?text=QR+Code'">
+                </div>
+                <p style="margin-top: 20px;"><strong>UPI ID:</strong> 7058432162@kotakbank</p>
+                <a href="https://wa.me/917058432162" class="btn-gold">Send Payment Screenshot →</a>
+            </div>
+        </section>
+        
+        <section class="section" id="contact">
+            <h2 class="sec-title">Reach <em>Prem Tayde</em></h2>
+            <div style="text-align: center;">
+                <p>📞 <a href="tel:+917058432162" style="color: #f0d080;">+91 70584 32162</a></p>
+                <p>💬 <a href="https://wa.me/917058432162" style="color: #f0d080;">WhatsApp</a></p>
+                <p>📧 <a href="mailto:V7pt.ms@gmail.com" style="color: #f0d080;">V7pt.ms@gmail.com</a></p>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div>psy<span style="color:#f0d080">mystics.com</span></div>
+        <div style="margin-top: 10px;">© 2026 Prem Tayde. All rights reserved.</div>
+    </footer>
+    
+    <script>
+        const cursor = document.getElementById('cursor');
+        const cursorRing = document.getElementById('cursorRing');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 5 + 'px';
+            cursor.style.top = e.clientY - 5 + 'px';
+            cursorRing.style.left = e.clientX - 18 + 'px';
+            cursorRing.style.top = e.clientY - 18 + 'px';
+        });
+        
+        document.querySelectorAll('a, button, .srv-card').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '18px';
+                cursor.style.height = '18px';
+                cursorRing.style.width = '52px';
+                cursorRing.style.height = '52px';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '10px';
+                cursor.style.height = '10px';
+                cursorRing.style.width = '36px';
+                cursorRing.style.height = '36px';
+            });
+        });
+    </script>
 </body>
 </html>
